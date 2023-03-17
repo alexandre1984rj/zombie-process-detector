@@ -26,7 +26,7 @@ def check_for_zombies():
                 with open(f"/proc/{ppid}/cgroup", "rt") as f:
                     for line in f.readlines():
                         if "docker" in line or "kubepods" in line:
-                            container_id = line.split("/")[-1].strip()
+                            container_id = line.split("/")[-1].strip()[:12]
                             break
 
                 logging.warning(f"Zombie process found on pid {proc.pid} (process name: {proc.name()} - pid in parent: {ppid} - container id: {container_id})")
